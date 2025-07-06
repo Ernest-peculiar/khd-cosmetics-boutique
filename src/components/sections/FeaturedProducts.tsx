@@ -11,12 +11,13 @@ export const FeaturedProducts = () => {
   const { toast } = useToast();
   const { products, loading } = useProducts();
 
-  // Select 4 random products from any category
-  function getRandomProducts(arr, n) {
-    const shuffled = arr.slice().sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, n);
+  // Show the first 3 products, and the 5th product as the 4th featured (if it exists)
+  let featuredProducts = products.slice(0, 3);
+  if (products.length > 4) {
+    featuredProducts = [...featuredProducts, products[4]];
+  } else if (products.length > 3) {
+    featuredProducts = [...featuredProducts, products[3]];
   }
-  const featuredProducts = getRandomProducts(products, 4);
 
   const handleAddToCart = (product: any) => {
     console.log("Featured products - adding to cart:", product);
@@ -35,6 +36,12 @@ export const FeaturedProducts = () => {
       description: `${product.name} has been added to your wishlist.`,
     });
   };
+
+  // Debug: log all product names to help you find the correct ones
+  console.log(
+    "Available product names:",
+    products.map((p) => p.name)
+  );
 
   if (loading) {
     return (
