@@ -1,11 +1,10 @@
-
 import { CategoryPage } from "./CategoryPage";
 import { useProductsByCategory } from "@/hooks/useProducts";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 
 const Jewelry = () => {
-  const { products, loading } = useProductsByCategory('jewelry');
+  const { products, loading } = useProductsByCategory("jewelry");
 
   if (loading) {
     return (
@@ -26,17 +25,19 @@ const Jewelry = () => {
     <CategoryPage
       category="jewelry"
       title="Jewelry Collection"
-      description="Elegant and timeless pieces to complement your unique style"
-      products={products.map(product => ({
+      description="Eleeegant and timeless pieces to complement your unique style"
+      products={products.map((product) => ({
         id: product.id,
         name: product.name,
         price: Number(product.price),
-        originalPrice: product.original_price ? Number(product.original_price) : undefined,
+        originalPrice: product.original_price
+          ? Number(product.original_price)
+          : undefined,
         image: product.image,
         rating: Number(product.rating) || 0,
         reviews: product.reviews_count || 0,
         brand: product.brand,
-        isOnSale: product.is_on_sale || false
+        isOnSale: product.is_on_sale || false,
       }))}
     />
   );
