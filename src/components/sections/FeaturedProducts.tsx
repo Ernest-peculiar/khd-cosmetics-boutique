@@ -11,13 +11,27 @@ export const FeaturedProducts = () => {
   const { toast } = useToast();
   const { products, loading } = useProducts();
 
-  // Show the first 3 products, and the 5th product as the 4th featured (if it exists)
-  let featuredProducts = products.slice(0, 3);
-  if (products.length > 4) {
-    featuredProducts = [...featuredProducts, products[4]];
-  } else if (products.length > 3) {
-    featuredProducts = [...featuredProducts, products[3]];
-  }
+  // Only show products with a valid image URL
+  const productsWithImages = products.filter(
+    (p) =>
+      typeof p.image === "string" &&
+      p.image.trim() &&
+      p.image.trim().length > 8 &&
+      (p.image.startsWith("http") || p.image.startsWith("/"))
+  );
+
+  // User-selected featured product names
+  const featuredNames = [
+    "Wrinkles Removal",
+    "Radiant Glow Serum",
+    "Hydrating Face Moisturizer",
+    "Gold Hoop Earrings",
+  ];
+
+  // Find products matching the selected names, in order
+  let featuredProducts = featuredNames
+    .map((name) => productsWithImages.find((p) => p.name === name))
+    .filter(Boolean);
 
   const handleAddToCart = (product: any) => {
     console.log("Featured products - adding to cart:", product);
@@ -42,6 +56,11 @@ export const FeaturedProducts = () => {
     "Available product names:",
     products.map((p) => p.name)
   );
+
+  // Print a clear, copy-paste-friendly list of all product names
+  console.log("--- ALL PRODUCT NAMES ---");
+  products.forEach((p, i) => console.log(`${i + 1}. ${p.name}`));
+  console.log("-------------------------");
 
   if (loading) {
     return (
