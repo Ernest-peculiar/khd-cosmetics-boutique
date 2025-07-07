@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Heart, User, Menu, X, LogOut } from "lucide-react";
@@ -15,30 +14,32 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
 
   const addToCart = (item: any) => {
-    console.log('Legacy addToCart called:', item);
+    console.log("Legacy addToCart called:", item);
   };
 
   const removeFromCart = (itemId: number) => {
-    console.log('Legacy removeFromCart called:', itemId);
+    console.log("Legacy removeFromCart called:", itemId);
   };
 
   const addToWishlist = (item: any) => {
-    console.log('Legacy addToWishlist called:', item);
+    console.log("Legacy addToWishlist called:", item);
   };
 
   const removeFromWishlist = (itemId: number) => {
-    console.log('Legacy removeFromWishlist called:', itemId);
+    console.log("Legacy removeFromWishlist called:", itemId);
   };
 
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      wishlistItems,
-      addToCart,
-      removeFromCart,
-      addToWishlist,
-      removeFromWishlist,
-    }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        wishlistItems,
+        addToCart,
+        removeFromCart,
+        addToWishlist,
+        removeFromWishlist,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -73,7 +74,8 @@ export const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-rose-500 to-amber-500 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-rose-500 to-amber-500 rounded-full flex items-center justify-center hidden md:flex">
+              {/* Add 'hidden md:flex' to hide on mobile, show on md+ */}
               <span className="text-white font-bold text-sm">K</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-rose-600 to-amber-600 bg-clip-text text-transparent">

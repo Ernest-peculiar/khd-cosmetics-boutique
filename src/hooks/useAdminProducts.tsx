@@ -1,11 +1,10 @@
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "./use-toast";
+import type { Tables } from "@/integrations/supabase/types";
 
-import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from './use-toast';
-import type { Tables } from '@/integrations/supabase/types';
-
-type Product = Tables<'products'>;
-type ProductInsert = Omit<Product, 'id' | 'created_at'>;
+type Product = Tables<"products">;
+type ProductInsert = Omit<Product, "id" | "created_at">;
 
 export const useAdminProducts = () => {
   const { toast } = useToast();
@@ -13,21 +12,21 @@ export const useAdminProducts = () => {
 
   const createProduct = async (productData: ProductInsert) => {
     setLoading(true);
-    console.log('Creating product with data:', productData);
-    
+    console.log("Creating product with data:", productData);
+
     try {
       const { data, error } = await supabase
-        .from('products')
+        .from("products")
         .insert(productData)
         .select()
         .single();
 
       if (error) {
-        console.error('Supabase error creating product:', error);
+        console.error("Supabase error creating product:", error);
         throw error;
       }
 
-      console.log('Product created successfully:', data);
+      console.log("Product created successfully:", data);
 
       toast({
         title: "Product created!",
@@ -36,10 +35,12 @@ export const useAdminProducts = () => {
 
       return { data, error: null };
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error("Error creating product:", error);
       toast({
         title: "Error",
-        description: `Failed to create product: ${error instanceof Error ? error.message : 'Please try again.'}`,
+        description: `Failed to create product: ${
+          error instanceof Error ? error.message : "Please try again."
+        }`,
         variant: "destructive",
       });
       return { data: null, error };
@@ -48,24 +49,43 @@ export const useAdminProducts = () => {
     }
   };
 
-  const updateProduct = async (id: number, productData: Partial<ProductInsert>) => {
+  const updateProduct = async (
+    id: number,
+    productData: Partial<ProductInsert>
+  ) => {
     setLoading(true);
-    console.log('Updating product with data:', { id, productData });
-    
+    console.log("Updating product with data:", { id, productData });
+
     try {
       const { data, error } = await supabase
-        .from('products')
+        .from("products")
         .update(productData)
-        .eq('id', id)
+        .eq("id", id)
         .select()
         .single();
 
       if (error) {
-        console.error('Supabase error updating product:', error);
+        if (error.code === "PGRST116") {
+          console.error("No product found with id:", id);
+          toast({
+            title: "Error",
+            description: `No product found with id: ${id}`,
+            variant: "destructive",
+          });
+        } else {
+          console.error("Supabase error updating product:", error);
+          toast({
+            title: "Error",
+            description: `Failed to update product: ${
+              error instanceof Error ? error.message : "Please try again."
+            }`,
+            variant: "destructive",
+          });
+        }
         throw error;
       }
 
-      console.log('Product updated successfully:', data);
+      console.log("Product updated successfully:", data);
 
       toast({
         title: "Product updated!",
@@ -74,10 +94,12 @@ export const useAdminProducts = () => {
 
       return { data, error: null };
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error("Error updating product:", error);
       toast({
         title: "Error",
-        description: `Failed to update product: ${error instanceof Error ? error.message : 'Please try again.'}`,
+        description: `Failed to update product: ${
+          error instanceof Error ? error.message : "Please try again."
+        }`,
         variant: "destructive",
       });
       return { data: null, error };
@@ -88,20 +110,17 @@ export const useAdminProducts = () => {
 
   const deleteProduct = async (id: number) => {
     setLoading(true);
-    console.log('Deleting product with id:', id);
-    
+    console.log("Deleting product with id:", id);
+
     try {
-      const { error } = await supabase
-        .from('products')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from("products").delete().eq("id", id);
 
       if (error) {
-        console.error('Supabase error deleting product:', error);
+        console.error("Supabase error deleting product:", error);
         throw error;
       }
 
-      console.log('Product deleted successfully');
+      console.log("Product deleted successfully");
 
       toast({
         title: "Product deleted!",
@@ -110,10 +129,12 @@ export const useAdminProducts = () => {
 
       return { error: null };
     } catch (error) {
-      console.error('Error deleting product:', error);
+      console.error("Error deleting product:", error);
       toast({
         title: "Error",
-        description: `Failed to delete product: ${error instanceof Error ? error.message : 'Please try again.'}`,
+        description: `Failed to delete product: ${
+          error instanceof Error ? error.message : "Please try again."
+        }`,
         variant: "destructive",
       });
       return { error };
@@ -122,5 +143,20 @@ export const useAdminProducts = () => {
     }
   };
 
-  return { createProduct, updateProduct, deleteProduct, loading };
+  const productExists = async (id: number) => {
+    const { data, error } = await supabase
+      .from("products")
+      .select("id")
+      .eq("id", id)
+      .single();
+    return !!data && !error;
+  };
+
+  return {
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    loading,
+    productExists,
+  };
 };
