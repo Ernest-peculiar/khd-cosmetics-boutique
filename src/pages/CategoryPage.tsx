@@ -245,7 +245,7 @@ export const CategoryPage = ({
                     Filters
                   </Button>
                 )}
-                <span className="text-gray-600 text-sm">item</span>
+                <span className="text-gray-600 text-sm">1 item</span>
               </div>
 
               <div className="flex items-center space-x-4">
