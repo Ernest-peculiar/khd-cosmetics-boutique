@@ -245,14 +245,12 @@ export const CategoryPage = ({
                     Filters
                   </Button>
                 )}
-                <span className="text-gray-600 text-sm">
-                  {filteredProducts.length} products
-                </span>
+                <span className="text-gray-600 text-sm">item</span>
               </div>
 
               <div className="flex items-center space-x-4">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-28">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
