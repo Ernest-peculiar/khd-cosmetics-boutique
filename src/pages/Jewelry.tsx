@@ -24,7 +24,7 @@ const Jewelry = () => {
   return (
     <CategoryPage
       category="jewelry"
-      title="JeWwelry Collection"
+      title="Jewelry Collection"
       description="Eegant and timeless pieces to complement your unique style"
       products={products.map((product) => ({
         id: product.id,
