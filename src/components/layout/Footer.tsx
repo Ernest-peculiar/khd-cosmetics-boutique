@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 
 export const Footer = () => {
   const categories = [
@@ -31,8 +39,8 @@ export const Footer = () => {
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed">
-              Premium beauty and wellness products crafted to enhance your natural radiance 
-              and boost your confidence every day.
+              Premium beauty and wellness products crafted to enhance your
+              natural radiance and boost your confidence every day.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
@@ -73,27 +81,42 @@ export const Footer = () => {
             <h3 className="text-lg font-bold mb-6">Customer Service</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <Link
+                  to="/contact"
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                >
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link to="/shipping" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <Link
+                  to="/shipping"
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                >
                   Shipping Info
                 </Link>
               </li>
               <li>
-                <Link to="/returns" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <Link
+                  to="/returns"
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                >
                   Returns & Exchanges
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <Link
+                  to="/faq"
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                >
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link to="/size-guide" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <Link
+                  to="/size-guide"
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                >
                   Size Guide
                 </Link>
               </li>
@@ -115,7 +138,8 @@ export const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-rose-400 mt-1" />
                 <span className="text-gray-400">
-                  123 Beauty Street<br />
+                  123 Beauty Street
+                  <br />
                   New York, NY 10001
                 </span>
               </div>
@@ -125,17 +149,27 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          Built by Spin up🟩
           <p className="text-gray-400 text-sm">
             © 2024 KHB Cosmetics. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link
+              to="/privacy"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link
+              to="/terms"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link to="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link
+              to="/cookies"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
               Cookie Policy
             </Link>
           </div>
