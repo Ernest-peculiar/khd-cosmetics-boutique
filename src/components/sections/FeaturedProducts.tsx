@@ -23,8 +23,8 @@ export const FeaturedProducts = () => {
   // User-selected featured product names
   const featuredNames = [
     "Wrinkles Removal",
-    "Radiant Glow Serum",
-    "Hydrating Face Moisturizer",
+    "Massage Anti Stretch Marks Body Cream",
+    "25PSKYN",
     "Gold Hoop Earrings",
   ];
 
